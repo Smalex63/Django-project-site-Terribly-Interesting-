@@ -1,0 +1,11 @@
+{% load stories_tags %}
+
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle active" href="" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Категории</a>
+    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+        {% get_categories as categories %}
+        {% for item in categories %}
+            <li><a class="dropdown-item" href="{{ item.get_absolute_url }}">{{ item.title }}</a></li>
+        {% endfor %}
+    </ul>
+</li>

@@ -1,0 +1,26 @@
+{% load sidebar %}
+
+<div class="col-md-3">
+	<form class="mb-3" action="{% url 'search' %}" method="get">
+		<div class="row g-2">
+			<div class="col-md-9">
+				<input class="form-control" type="text" name="s" placeholder="Найти">
+			</div>
+			<div class="col">
+				<input class="btn btn-primary" type="submit" value="Поиск">
+			</div>
+		</div>
+	</form>
+	
+	{% get_popular_posts %}
+
+	<div class="card mt-3">
+		<img class="card-img" src="media/images/reklama.png" alt="">
+		<div class="card-img-overlay d-flex align-items-end justify-content-center">
+			<a href="mailto:smalex631980@yandex.ru" class="text-reset"><h4>Написать мне</h4></a>
+		</div>
+	</div>
+	
+</div>
+
+	
