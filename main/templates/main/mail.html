@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>Обратная связь</title>{% endblock %}
+
+{% block content %}
+<div class="col-md-9">
+	<h1>Обратная связь</h1>
+
+	<form method="post" class="mb-3">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit" class="btn btn-primary btn-block">Отправить</button>
+	</form>
+</div>
+{% endblock %}

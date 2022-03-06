@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>{{ story_item.title }}</title>{% endblock %}
+
+{% block content %}
+<div class = "col-md-9">
+	<div class="card mb-3">
+		<div class="card-header">
+			Категории:
+			{% for category in story_item.category.all %}
+				{% if not forloop.last %}
+					<a class="text-reset" href="{{ category.get_absolute_url }}">{{ category.title }}</a> /
+				{% else %}
+					<a class="text-reset" href="{{ category.get_absolute_url }}">{{ category.title }}</a>
+				{% endif %}
+			{% endfor %}
+		</div>
+		<div class="card-body">
+			{% if story_item.image %}
+			<img src="{{ story_item.image.url }}" alt="" width="300" class="float-start px-3 mb-3">
+			{% endif %}
+			<h5 class="card-title">{{ story_item.title }}</h5>
+			<p class="card-text">{{ story_item.text|safe }}</p>
+		</div>
+		<div class="card-footer text-muted">
+			<div class="d-flex justify-content-between">
+				<p class="text-dark">{{ story_item.created_at|date:"Y.m.d H:i:s" }}</p>
+				<p class="text-dark">Просмотры: {{ story_item.views }}</p>
+			</div>
+			<div class="container-fluid border">
+				<p class="text-dark">Комментарии ({{ story_item.comment_story.all.count }}):</p>
+				<ul>
+				{% for item in story_item.comment_story.all %}
+					<li>
+						{{ item.created_at }}<br>
+						{{ item.author }}<br>
+						<br>
+						<p class="text-dark">{{ item.content }}</p>
+						<hr>
+					</li>
+				{% endfor %}
+				</ul>
+				<br>
+				{% if request.user.is_authenticated %}
+				<p class="text-dark">Добавить комментарий:</p>
+				<div class="col-4">
+					<form action="" method="post">
+						{% csrf_token %}
+						{{ form.as_p }}
+						<button type="submit" class="btn btn-primary btn-block">Добавить</button>
+					</form>
+				</div>
+				{% else %}
+				<p class="text-dark">Чтобы оставить комментарий, <a class="text-reset" href="{% url 'login' %}">войдите</a> или <a class="text-reset" href="{% url 'register' %}">зарегистрируйтесь</a></p>
+				{% endif %}
+			</div>
+		</div>
+
+	</div>
+</div>
+{% endblock %}
